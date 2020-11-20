@@ -75,6 +75,13 @@ export const getAllTaskStates = (): string[] => {
       state.trim()
     );
   }
+  // @ts-ignore
+  if (process.env.KOGITO_TASKS_STATES_LIST) {
+    // @ts-ignore
+    return process.env.KOGITO_TASKS_STATES_LIST.split(',').map(state =>
+      state.trim()
+    );
+  }
   return ['Ready', 'Reserved', 'Completed', 'Aborted', 'Skipped'];
 };
 
@@ -83,6 +90,13 @@ export const getActiveTaskStates = (): string[] => {
   if (window.KOGITO_TASKS_ACTIVE_STATES_LIST) {
     // @ts-ignore
     return window.KOGITO_TASKS_ACTIVE_STATES_LIST.split(',').map(state =>
+      state.trim()
+    );
+  }
+  // @ts-ignore
+  if (process.env.KOGITO_TASKS_ACTIVE_STATES_LIST) {
+    // @ts-ignore
+    return process.env.KOGITO_TASKS_ACTIVE_STATES_LIST.split(',').map(state =>
       state.trim()
     );
   }

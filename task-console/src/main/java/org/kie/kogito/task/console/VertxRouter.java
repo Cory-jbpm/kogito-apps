@@ -46,6 +46,14 @@ public class VertxRouter {
     String authEnabled;
 
     @Inject
+    @ConfigProperty(name = "kogtio.tasks.active.states.list", defaultValue = "Ready,Reserved")
+    String activeTaskStates;
+
+    @Inject
+    @ConfigProperty(name = "kogtio.tasks.states.list", defaultValue = "Ready,Reserved,Completed,Aborted,Skipped")
+    String allTaskStates;
+
+    @Inject
     Vertx vertx;
 
     private String resource;
@@ -56,7 +64,9 @@ public class VertxRouter {
                 .readFileBlocking("META-INF/resources/index.html")
                 .toString(UTF_8)
                 .replace("__DATA_INDEX_ENDPOINT__", "\"" + dataIndexHttpURL + "/graphql\"")
-                .replace("__KOGITO_AUTH_ENABLED__", authEnabled);
+                .replace("__KOGITO_AUTH_ENABLED__", authEnabled)
+                .replace("__KOGITO_TASKS_ACTIVE_STATES_LIST__", "\"" + activeTaskStates + "\"")
+                .replace("__KOGITO_TASKS_STATES_LIST__", "\"" + allTaskStates + "\"");
     }
 
     void setupRouter(@Observes Router router) {

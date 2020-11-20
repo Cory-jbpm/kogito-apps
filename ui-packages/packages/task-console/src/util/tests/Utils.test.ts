@@ -122,11 +122,42 @@ describe('Utils testing', () => {
     ]);
   });
 
+  it('test get all task states with process.env', () => {
+    /* tslint:disable:no-string-literal */
+    process.env['KOGITO_TASKS_STATES_LIST'] =
+      'Ready,Reserved,Completed,Skipped';
+    let allTaskStates = getAllTaskStates();
+    expect(allTaskStates).toEqual([
+      'Ready',
+      'Reserved',
+      'Completed',
+      'Skipped'
+    ]);
+    delete process.env['KOGITO_TASKS_STATES_LIST'];
+    allTaskStates = getAllTaskStates();
+    expect(allTaskStates).toEqual([
+      'Ready',
+      'Reserved',
+      'Completed',
+      'Aborted',
+      'Skipped'
+    ]);
+  });
+
   it('test get active task states', () => {
     window['KOGITO_TASKS_ACTIVE_STATES_LIST'] = 'Ready,Reserved,Completed';
     let activeTaskStates = getActiveTaskStates();
     expect(activeTaskStates).toEqual(['Ready', 'Reserved', 'Completed']);
     delete window['KOGITO_TASKS_ACTIVE_STATES_LIST'];
+    activeTaskStates = getActiveTaskStates();
+    expect(activeTaskStates).toEqual(['Ready', 'Reserved']);
+  });
+
+  it('test get active task states with process.env', () => {
+    process.env['KOGITO_TASKS_ACTIVE_STATES_LIST'] = 'Ready,Reserved,Completed';
+    let activeTaskStates = getActiveTaskStates();
+    expect(activeTaskStates).toEqual(['Ready', 'Reserved', 'Completed']);
+    delete process.env['KOGITO_TASKS_ACTIVE_STATES_LIST'];
     activeTaskStates = getActiveTaskStates();
     expect(activeTaskStates).toEqual(['Ready', 'Reserved']);
   });

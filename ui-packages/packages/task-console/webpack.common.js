@@ -16,7 +16,9 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       KOGITO_DATAINDEX_HTTP_URL: 'http://localhost:4000/graphql',
       KOGITO_APP_VERSION: 'DEV',
-      KOGITO_APP_NAME: 'Task Console'
+      KOGITO_APP_NAME: 'Task Console',
+      KOGITO_TASKS_STATES_LIST: 'Ready-KOGITO-3559,Started-KOGITO-3559,Completed,Aborted,Skipped',
+      KOGITO_TASKS_ACTIVE_STATES_LIST: 'Ready-KOGITO-3559,Started-KOGITO-3559'
     })
   ],
   module: {
